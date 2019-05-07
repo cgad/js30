@@ -14,6 +14,7 @@ function removeTransition(e) {
 }
 
 const keys = document.querySelectorAll(".key");
+console.log('keys: ' + keys)
 // can't listen on each item in array, can only listen to one at once
 keys.forEach(key =>
   key.addEventListener("transitionend", removeTransition)

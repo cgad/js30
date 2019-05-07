@@ -1,0 +1,44 @@
+/* variables */
+:root {
+  --base: #ffffff;
+  --spacing: 20px;
+  --blur: 5px;
+}
+
+/* use the variables */
+img {
+  height: 450px;
+  background: var(--base);
+  padding: var(--spacing);
+  filter: blur(var(--blur));
+}
+
+.highlight {
+  color: var(--base);
+  font-weight: 500;
+}
+
+/*
+  misc styles, nothing to do with CSS variables
+*/
+body {
+  text-align: center;
+  background: #161e27;
+  color: #c7bcb6;
+  font-family: 'helvetica neue', sans-serif;
+  font-weight: 100;
+  font-size: 30px;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 300;
+}
+
+.controls {
+  margin-bottom: 40px;
+}
+
+input {
+  width: 100px;
+}
