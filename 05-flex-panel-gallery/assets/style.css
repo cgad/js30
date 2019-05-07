@@ -1,0 +1,110 @@
+html {
+  box-sizing: border-box;
+  background: #cac5c7;
+  font-family: 'helvetica neue';
+  font-size: 20px;
+  font-weight: 200;
+}
+
+body {
+  margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.panels {
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+}
+
+.panel {
+  box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
+  color: white;
+  text-align: center;
+  align-items: center;
+  transition:
+    font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+    flex 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+    background 0.2s;
+  font-size: 20px;
+  background-size: cover;
+  background-position: center;
+  flex: 1;
+  /* evenly distribute extra space so panels take up whole page */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  /* nested flexbox */
+}
+
+.panel1 {
+  background-image: url(../assets/images/calvin-weibel-425831-unsplash.jpg);
+}
+
+.panel2 {
+  background-image: url(../assets/images/ethan-hoover-339061-unsplash.jpg);
+}
+
+.panel3 {
+  background-image: url(../assets/images/bailey-starner-1290022-unsplash.jpg);
+}
+
+.panel4 {
+  background-image: url(../assets/images/lucas-ludwig-681041-unsplash.jpg);
+}
+
+.panel5 {
+  background-image: url(../assets/images/mike-petrucci-131828-unsplash.jpg);
+}
+
+/* Flex Children */
+.panel>* {
+  /* all .panel children */
+  margin: 0;
+  width: 100%;
+  transition: transform 0.5s;
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.panel>*:first-child {
+  transform: translateY(-100%);
+  /* all first children ie all the top words hide to top of page */
+}
+
+.panel>*:last-child {
+  transform: translateY(100%);
+  /* all last children ie all the bottom words hide to bottom of page */
+}
+
+.panel.open-active>*:first-child,
+.panel.open-active>*:last-child {
+  transform: translateY(0%);
+  /* bring back to page when class .open-active */
+}
+
+.panel p {
+  text-transform: uppercase;
+  font-family: 'Amatic SC', cursive;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+  font-size: 2em;
+}
+
+.panel p:nth-child(2) {
+  /* every 2nd child of .panel - in this case, just applies to the 2nd of the 3 p children */
+  font-size: 4em;
+}
+
+.panel.open {
+  flex: 5;
+  /* take up 5x the amount of extra room as the rest of the flex children */
+  font-size: 40px;
+}
