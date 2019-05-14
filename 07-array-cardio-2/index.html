@@ -40,14 +40,22 @@
       // Find is like filter, but instead returns just the one you are looking for (first match it finds)
       // find the comment with the ID of 823423
       const comment = comments.find(comment => comment.id === 823423);
-      console.log({comment})
+      console.log({ comment });
 
       // Array.prototype.findIndex()
       // find where it is in the array
       // Find the comment with this ID
+      const index = comments.findIndex(comment => comment.id === 823423);
+      console.log({ index });
       // delete the comment with the ID of 823423
-      const index = comments.findIndex(comment => comment.id === 823423)
-      console.log({index})
+          // splice method
+          // comments.splice(index, 1);
+      // spread into new array - popular with redux
+      const newComments = [
+        ...comments.slice(0, index),
+        ...comments.slice(index + 1)
+      ]; // spread so all at same level in new array, no nested objects
+      console.table(newComments)
     </script>
   </body>
 </html>
