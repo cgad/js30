@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 Canvas</title>
+  </head>
+  <body>
+    <h1>draw in my dotted box</h1>
+    <p><strong>hold down your mouse to draw</strong></p>
+    <p>to resize the box, resize your browser window and refresh the page</p>
+    <canvas id="draw"></canvas>
+
+    <script>
+      // you don't draw on canvas element, instead you draw on context element (2d or 3d like video games etc)
+      const canvas = document.querySelector("#draw");
+      const ctx = canvas.getContext("2d");
+
+      // resize canvas to size of window before drawing
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      // canvas.width = window.innerWidth * 0.8;
+      // canvas.height = window.innerHeight * 0.8;
+
+      // base settings
+      ctx.strokeStyle = "#62807c"; // color
+      ctx.lineJoin = "round"; // where lines meet
+      ctx.lineCap = "round"; // end of line
+      ctx.lineWidth = 20; // thicker
+      // ctx.globalCompositeOperation = "lighter"; // blend mode example
+
+      let isDrawing = false; // flag. only draw when clicked down on element, not when just moving mouse around. set true when click down, set false when click up
+      // line needs starting and stopping coordinates
+      let lastX = 0;
+      let lastY = 0;
+      let hue = 0;
+      let direction = true;
+
+      // click and drag functionality
+      function draw(event) {
+        if (!isDrawing) return; // stop func if not mousedown
+
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.beginPath();
+        // start from position
+        ctx.moveTo(lastX, lastY);
+        // go to position
+        ctx.lineTo(event.offsetX, event.offsetY);
+        ctx.stroke();
+        // update lastX and lastY
+        [lastX, lastY] = [event.offsetX, event.offsetY]; // ES6 array destructuring
+
+        hue += 2; // increment each mousemove
+        if (hue >= 360) hue = 0; // reset so always 0-360
+        if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) direction = !direction; // keep lineWidth within 1-100
+        if (direction) {
+          ctx.lineWidth++;
+        } else ctx.lineWidth--; // go back and forth in lineWidth scale rather than getting to top and resetting back to initial
+      }
+
+      canvas.addEventListener("mousedown", () => {
+        isDrawing = true;
+        // update lastX and lastY before draw so drawing starts where mouse currently is rather than starting at 0, 0
+        [lastX, lastY] = [event.offsetX, event.offsetY];
+      });
+      canvas.addEventListener("mousemove", draw);
+      canvas.addEventListener("mouseup", () => (isDrawing = false));
+      canvas.addEventListener("mouseout", () => (isDrawing = false)); // otherwise if you come back onto screen after it leaves when mouse is down, will come back drawing still
+
+      console.log(ctx);
+    </script>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+      h1 {
+        margin-bottom: 0;
+      }
+      p {
+        line-height: 80%;
+      }
+      h1, p {
+        width: 100%;
+        text-align: center;
+        color: #62807c;
+        font-family: "Courier New", Courier, monospace;
+      }
+      canvas {
+        border: 5px dotted #62807c;
+      }
+    </style>
+  </body>
+</html>
