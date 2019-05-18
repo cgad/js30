@@ -5,6 +5,7 @@ const progressBar = player.querySelector(".progress__filled");
 const toggle = player.querySelector(".toggle");
 const skipButtons = player.querySelectorAll("[data-skip]");
 const ranges = player.querySelectorAll(".player__slider");
+const controls = player.querySelector(".player__controls");
 
 const togglePlay = () => {
   if (video.paused) {
@@ -49,6 +50,19 @@ function scrub(event) {
   video.currentTime = scrubTime;
 }
 
+player.addEventListener("mouseover", () => {
+  controls.style.display = "block";
+  // controls.style.transitionTimingFunction = "easein";
+  player.style.backgroundColor = "white";
+  progress.marginTop = "3px";
+});
+player.addEventListener("mouseout", () => {
+  controls.style.display = "none";
+  // controls.style.transition = "display 1s ";
+  // controls.style.transitionTimingFunction = "easeout";
+  player.style.backgroundColor = "black";
+  progress.marginTop = "0";
+});
 video.addEventListener("play", updateButton);
 video.addEventListener("pause", updateButton);
 video.addEventListener("click", togglePlay);
