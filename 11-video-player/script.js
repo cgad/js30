@@ -28,7 +28,7 @@ function updateButton() {
   toggle.textContent = icon;
 }
 
-// flag for handling ranges - using mouseover instead of change so values change on slide instead of when gets to final point
+// flag for handling ranges - using mouseover instead of change so reflects change on slide instead of when gets to final point
 let mouseDown = false;
 
 function handleRangeUpdate() {
@@ -39,8 +39,14 @@ function handleRangeUpdate() {
 
 function handleProgress() {
   const percent = (video.currentTime / video.duration) * 100;
-  console.log(percent)
   progressBar.style.flexBasis = `${percent}%`;
+}
+
+function scrub(event) {
+  // event.offsetX = how many pixels clicked away from the start of the bar
+  // progress.offsetWidth = width of progress bar
+  const scrubTime = (event.offsetX / progress.offsetWidth) * video.duration; // percent of progress * duration of video
+  video.currentTime = scrubTime;
 }
 
 video.addEventListener("play", updateButton);
@@ -56,3 +62,4 @@ ranges.forEach(range =>
 ranges.forEach(range =>
   range.addEventListener("mouseup", () => (mouseDown = false))
 );
+progress.addEventListener("click", scrub);
