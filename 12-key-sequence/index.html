@@ -1,0 +1,41 @@
+<!-- key sequence detection used mostly for Konami Code like in games -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+  </head>
+  <body>
+    <h1>key sequence detection</h1>
+    <p>match your pressed key sequence to the secret code</p>
+    <p>
+      <small>hint: open the console to see the secret code <br />know when you've matched when the console prints "match"</small>
+    </p>
+    <script>
+      let pressed = []; // empty array to push key presses to
+      const keySequence = "cgad"; // key sequence to match
+      console.log(keySequence);
+
+      window.addEventListener("keyup", event => {
+        pressed.push(event.key);
+        // method #1
+        // if (pressed.join("").includes(keySequence)) {
+        //   console.log("match");
+        //   pressed = [];
+        //
+        // method #2
+        // only keep latest x amount of keys where x=keySequence.length
+        // array.splice() negative numbers indicate count from end of array
+        // splice from index 3 backwards to whatever index would make the array the same length as keySequence
+        pressed.splice(
+          -keySequence.length - 1,
+          pressed.length - keySequence.length
+        );
+        if (pressed.join("") === keySequence) {
+          console.log("match");
+        }
+      });
+    </script>
+  </body>
+</html>
